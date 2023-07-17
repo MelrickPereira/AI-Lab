@@ -34,6 +34,7 @@ addEdge(2,4,4)
 addEdge(3,5,2)
 addEdge(3,6,1)
 addEdge(4,6,1)
+addEdge(0,4,3)
 
 
 BestFirstSearch(0,6)
