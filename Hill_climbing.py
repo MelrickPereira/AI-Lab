@@ -11,54 +11,46 @@ hf = {
     'S':13,
     'G':0
 }
-graph = {
-    'S': ['A','B'],
-    'A': ['C','D'],
-    'C':[],
-    'D':[],
-    'B':['E','F'],
-    'E':['H'],
-    'F':['I','G'],
-    'H':[],
-    'I':[],
-    'G':[]
-
-}
+from queue import PriorityQueue
+v = 14
+graph = [[] for i in range(v)]
 
 path = []
-def BestFirstSearch(graph,hf,start):
-    siblings = []
-    open = []
-    close = set()
-   
-    open.append(start)
-    while open!=[]:
-        print(1)
-        n=open.pop()
-        path.append(n)
-        close.add(n)
-        for i in graph[n]:
-            siblings.append(i)
-        min = 999
-        global min_sib
-        if min_sib ==[]:
+
+def addEdge(x,y,c):
+    graph[x].append((y,c))
+    graph[y].append((x,c))
+
+def HillClimbing(src,dest):
+    visited = [False]*v
+    pq = PriorityQueue()
+    pq.put((0,src))
+    visited[src] = True
+    while pq.empty() == False:
+        u = pq.get()[1]
+        path.append(u)
+        if u==dest:
             break
-        for sn in siblings:
-            if min>hf[sn]:
-                min=hf[sn]
-                min_sib = sn
-        
-        open.append(min_sib)
-        
+        for n,c in graph[u]:
+            if n not in visited:
+                visited[n]=True
+                pq.put((c,n))
 
-    
 
-BestFirstSearch(graph,hf,'S')
+
+
+
+addEdge(0,1,3)
+addEdge(0,2,2)
+addEdge(2,3,2)
+addEdge(2,4,4)
+addEdge(3,5,2)
+addEdge(3,6,1)
+addEdge(4,6,1)
+addEdge(0,4,3)
+
+
+HillClimbing(0,6)
 
 for i in path:
     print(i,end='->')
-
-
-
-
-
